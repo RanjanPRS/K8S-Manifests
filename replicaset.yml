@@ -1,0 +1,22 @@
+#kubectl create rs <name> --image=<image> --replicas=<number> --port=<port>
+#kubectl api-resources | grep rs
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myreplicaset
+  labels:
+    app: myapp
+    env: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx-pod
+          image: nginx:latest

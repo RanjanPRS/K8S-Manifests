@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: nginx-pod2
+    image: nginx
+    ports:
+      - containerPort: 80
+#kubectl get po -l name=myapp
+#kubectl delete pod/<podname>
+#kubectl port-forward <podname> <hostport>:<contport>
+# access app on localhost:<hostport>
+#kubectl get po -o wide
+#kubectl exec -it <podname> -c <particular-cont-if-many-containers> -- bash

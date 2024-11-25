@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginx-pod
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+# k apply -f <deploy.yml>
+# k scale --replicas=4 deployyment/<deploy-name>
+# k set image deploy/<deploy-name> <cont-name>=<img:tag> --record
+# k rollout history deploy/<deploy-name>
+# k rollout undo deploy/<deploy-name> --to-revision=2

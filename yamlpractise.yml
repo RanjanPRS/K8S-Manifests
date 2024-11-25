@@ -1,0 +1,23 @@
+- name: cluster-yaml
+  isActive: True
+#Dictionary
+
+  access:
+  ip: 192.16.2.0
+  mac: xxx
+
+#array
+
+- array:
+  whatever: value
+  version: !!str 12030
+  nodes:
+   - port no: 2000
+     tags:
+       - dev
+       - prod
+   - port no: 2111
+     tags:
+       - prod
+       - stagin
+
