@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp
+  ports:
+  - port: 8082
+    targetPort: 80
+    nodePort: 30000
+
+# if its not a cloud based cluster, no lb is created and it simply acts as a nodeport
+# balances traffic by creating a lb on the cloud platform
+
