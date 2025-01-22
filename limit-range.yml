@@ -1,0 +1,16 @@
+apiVersion: v1                # API version for the LimitRange object
+kind: LimitRange              # Defines this object as a LimitRange
+metadata:
+  name: cpu-constraint-for-pods  # Name of the LimitRange
+spec:                         # Configuration for resource constraints
+  limits:                     # Defines the resource limits for containers
+    - default:                # Default limit applied if not specified by the Pod
+        cpu: 500m             # Default maximum CPU usage for a container (500 millicores)
+      defaultRequest:         # Default resource request if not specified by the Pod
+        cpu: 500m             # Default minimum CPU guaranteed for a container
+      max:                    # Maximum allowable resource usage
+        cpu: "1"              # Max CPU usage per container (1 core)
+      min:                    # Minimum required resource usage
+        cpu: 100m             # Min CPU guaranteed per container (100 millicores)
+      type: Container         # Specifies the type this limit applies to (e.g., Container)
+

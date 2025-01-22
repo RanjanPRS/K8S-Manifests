@@ -1,0 +1,40 @@
+# A DaemonSet ensures that a specific Pod runs on every (or selected) node in the cluster.
+# It is typically used for deploying background or system-level tasks such as logging, monitoring, or networking components.
+#
+# Use Case:
+# - Deploying log collectors like Fluentd to gather logs from all nodes.
+# - Running node monitoring agents like Prometheus Node Exporter.
+# - Managing network plugins such as CNI plugins.
+
+apiVersion: apps/v1              
+kind: DaemonSet                   
+metadata:
+  name: fluentd-daemonset         # Name of the DaemonSet
+  namespace: kube-system          # Namespace where the DaemonSet will be created (usually system-level tasks run in kube-system)
+spec:
+  selector:                       # Selector to match the Pods managed by this DaemonSet
+    matchLabels:
+      app: fluentd                # Pods with this label will be managed by the DaemonSet
+  template:                       # Pod template for the Pods created by this DaemonSet
+    metadata:
+      labels:
+        app: fluentd              # Label assigned to Pods for identification and management
+    spec:
+      containers:                 
+      - name: fluentd             
+        image: fluent/fluentd:latest  # Docker image for Fluentd (logging agent)
+        resources:                # Resource requests and limits for resource management
+          requests:
+            cpu: 100m             # Minimum CPU reserved for the container
+            memory: 200Mi         # Minimum memory reserved for the container
+          limits:
+            cpu: 200m             # Maximum CPU the container can consume
+            memory: 300Mi         # Maximum memory the container can consume
+        volumeMounts:             # Volumes to mount inside the container
+        - name: varlog
+          mountPath: /var/log     # Mounts the host's log directory at /var/log inside the container
+      volumes:                    # Volumes available to the Pods
+      - name: varlog
+        hostPath:                 # Uses a directory from the host node
+          path: /var/log          # Path on the host machine to mount
+          type: DirectoryOrCreate # Creates the directory if it doesn’t exist

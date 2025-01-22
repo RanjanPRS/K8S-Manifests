@@ -1,0 +1,11 @@
+apiVersion: v1                # API version for the ResourceQuota object
+kind: ResourceQuota           # Defines this object as a ResourceQuota
+metadata:
+  name: my-rq                 # Name of the ResourceQuota
+spec:                         # Configuration for resource limits
+  hard:                       # Maximum allowed resource usage
+    requests.cpu: 2           # Max total CPU requests (guaranteed minimum) across all Pods
+    requests.memory: 4Gi      # Max total memory requests across all Pods
+    limits.cpu: 10            # Max total CPU usage across all Pods
+    limits.memory: 10Gi       # Max total memory usage across all Pods
+
